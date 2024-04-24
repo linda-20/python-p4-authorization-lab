@@ -101,11 +101,8 @@ class MemberOnlyArticle(Resource):
             return {'message': 'Unauthorized'}, 401
         else:
             article = db.session.get(Article, id)
-            if not article or not article.is_member_only:
-                return {'message': 'Article not found'}, 404
-            else:
-                article_json = article.to_dict()
-                return make_response(jsonify(article_json), 200)
+            article_json = article.to_dict()
+            return make_response(jsonify(article_json), 200)
         pass
 api.add_resource(ClearSession, '/clear', endpoint='clear')
 api.add_resource(IndexArticle, '/articles', endpoint='article_list')
